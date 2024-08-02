@@ -1,0 +1,14 @@
+<h2>Item list</h2>
+<form method="get" action="{% url 'items_list' %}">
+    <label for="key">Key:</label>
+    <input type="text" id="key" name="key" required>
+    <button type="submit">Get Item</button>
+</form>
+
+{% if data %}
+    <h3>Data list</h3>
+    <p>Key: {{ data.key }}</p>
+    <p>Value: {{ data.value }}</p>
+{% elif error %}
+    <p> {{error }}</p>
+{% endif %}

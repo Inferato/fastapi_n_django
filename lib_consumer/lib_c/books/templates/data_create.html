@@ -1,0 +1,12 @@
+<h2>Create Data</h2>
+<form method="post" action="{% url 'data_create' %}">
+    {% csrf_token %}
+    <label for="key">Key:</label>
+    <input type="text" id="key" name="key" required>
+    <br>
+    <label for="value">Value:</label>
+    <input type="text" id="value" name="value" required>
+    <br>
+    <input type="text" name="pot" hidden>
+    <button type="submit">Create</button>
+</form>

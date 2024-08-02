@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  django:
+    build: 
+      context: .
+      dockerfile: ./lib_cunsumer/Dockerfile
+    ports: 
+      - "8000:8000"
+    depends_on:
+      - redis
+      - fastapi
+    volumes:
+      - ./lib_cunsumer:/app/
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+  
+  fastapi:
+    build: 
+      context: .
+      dockerfile: ./store/Dockerfile
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./store:/app
+    command: bash -c "uvicorn lib_store.main:app --host 0.0.0.0 --port 9000"
+  
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
